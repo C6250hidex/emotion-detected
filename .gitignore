@@ -1,0 +1,33 @@
+# Node.js
+node_modules/
+dist/
+.env
+npm-debug.log*
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+env/
+.venv/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# Backend specific
+uploads/
