@@ -14,7 +14,7 @@ app.use(helmet());
 
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://your-frontend-link.vercel.app",
+  "https://emotion-detected.onrender.com",
 ];
 app.use(
   cors({
