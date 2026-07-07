@@ -1,57 +1,77 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
+
+  // Check if user is logged in
+  const userInfo = localStorage.getItem("userInfo")
+    ? JSON.parse(localStorage.getItem("userInfo"))
+    : null;
+
+  const handleLogout = () => {
+    localStorage.removeItem("userInfo");
+    navigate("/login");
+    setIsOpen(false);
+  };
+
+  const linkStyles =
+    "text-gray-600 hover:text-indigo-600 font-medium text-sm tracking-wide transition-colors duration-200 relative after:content-[''] after:absolute after:left-0 after:bottom-[-4px] after:w-0 after:h-[2px] after:bg-indigo-600 hover:after:w-full after:transition-all";
 
   return (
     <nav className="bg-white/90 backdrop-blur-md shadow-sm sticky top-0 z-50 px-6 py-4 transition-all duration-300">
       <div className="max-w-7xl mx-auto flex justify-between items-center">
         {/* Logo / Brand */}
-        <h1 className="text-xl md:text-2xl font-bold tracking-tight bg-gradient-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent cursor-pointer hover:opacity-90 transition">
+        <Link
+          to="/"
+          className="text-xl md:text-2xl font-bold tracking-tight bg-gradient-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent cursor-pointer hover:opacity-90 transition"
+        >
           AI Emotion Sense
-        </h1>
+        </Link>
 
         {/* Desktop Navigation Links */}
         <div className="hidden md:flex items-center space-x-8">
-          <Link to="/">
-            <a
-              className="text-gray-600 hover:text-indigo-600 font-medium text-sm tracking-wide transition-colors duration-200 relative after:content-[''] after:absolute after:left-0 after:bottom-[-4px] after:w-0 after:h-[2px] after:bg-indigo-600 hover:after:w-full after:transition-all"
-            >
-              Home
-            </a>
+          <Link to="/" className={linkStyles}>
+            Home
           </Link>
-          <Link to="/detection">
-            <a
-              className="text-gray-600 hover:text-indigo-600 font-medium text-sm tracking-wide transition-colors duration-200 relative after:content-[''] after:absolute after:left-0 after:bottom-[-4px] after:w-0 after:h-[2px] after:bg-indigo-600 hover:after:w-full after:transition-all"
-            >
-              Detection
-            </a>
+          <Link to="/detection" className={linkStyles}>
+            Detection
           </Link>
-          <Link to="/dashboard">
-            <a
-              className="text-gray-600 hover:text-indigo-600 font-medium text-sm tracking-wide transition-colors duration-200 relative after:content-[''] after:absolute after:left-0 after:bottom-[-4px] after:w-0 after:h-[2px] after:bg-indigo-600 hover:after:w-full after:transition-all"
-            >
-              Dashboard
-            </a>
+          <Link to="/dashboard" className={linkStyles}>
+            Dashboard
           </Link>
         </div>
 
         {/* Desktop Action Button */}
-        <div className="hidden md:flex items-center">
-          <Link to="/login">
-            <button className="bg-indigo-600 text-white px-5 py-2.5 rounded-xl font-medium text-sm shadow-md shadow-indigo-200 hover:bg-indigo-700 hover:shadow-lg hover:shadow-indigo-300 transform hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200">
+        <div className="hidden md:flex items-center gap-4">
+          {userInfo ? (
+            <>
+              <span className="text-xs font-mono text-slate-400 uppercase tracking-widest">
+                User: {userInfo.name.split("")[0]}
+              </span>
+              <button
+                onClick={handleLogout}
+                className="bg-rose-50 text-rose-600 px-5 py-2.5 rounded-xl font-medium text-sm hover:bg-rose-100 transition-all duration-200"
+              >
+                Logout
+              </button>
+            </>
+          ) : (
+            <Link
+              to="/login"
+              className="bg-indigo-600 text-white px-5 py-2.5 rounded-xl font-medium text-sm shadow-md shadow-indigo-200 hover:bg-indigo-700 hover:shadow-lg hover:shadow-indigo-300 transform hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200"
+            >
               Login
-            </button>
-          </Link>
+            </Link>
+          )}
         </div>
 
-        {/* Mobile Menu Button (Hamburger) */}
+        {/* Mobile Menu Button */}
         <div className="md:hidden flex items-center">
           <button
             onClick={() => setIsOpen(!isOpen)}
             className="text-gray-600 hover:text-indigo-600 focus:outline-none p-1.5 rounded-lg hover:bg-gray-50 transition"
-            aria-label="Toggle Menu"
           >
             <svg
               className="w-6 h-6"
@@ -81,35 +101,47 @@ const Navbar = () => {
 
       {/* Mobile Drawer Menu */}
       <div
-        className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${isOpen ? "max-h-64 opacity-100 mt-4" : "max-h-0 opacity-0"}`}
+        className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${isOpen ? "max-h-80 opacity-100 mt-4" : "max-h-0 opacity-0"}`}
       >
         <div className="flex flex-col space-y-4 px-2 pt-2 pb-4 border-t border-gray-100">
-          <Link to="/">
-            <a
-              className="text-gray-600 hover:text-indigo-600 font-medium text-base py-1 transition"
-            >
-              Home
-            </a>
+          <Link
+            to="/"
+            onClick={() => setIsOpen(false)}
+            className="text-gray-600 font-medium text-base py-1"
+          >
+            Home
           </Link>
-          <Link to="/detection">
-            <a
-              className="text-gray-600 hover:text-indigo-600 font-medium text-base py-1 transition"
-            >
-              Detection
-            </a>
+          <Link
+            to="/detection"
+            onClick={() => setIsOpen(false)}
+            className="text-gray-600 font-medium text-base py-1"
+          >
+            Detection
           </Link>
-          <Link to="/dashboard">
-            <a
-              className="text-gray-600 hover:text-indigo-600 font-medium text-base py-1 transition"
-            >
-              Dashboard
-            </a>
+          <Link
+            to="/dashboard"
+            onClick={() => setIsOpen(false)}
+            className="text-gray-600 font-medium text-base py-1"
+          >
+            Dashboard
           </Link>
-          <Link to="/login">
-            <button className="w-full bg-indigo-600 text-white px-5 py-2.5 rounded-xl font-medium text-sm shadow-md hover:bg-indigo-700 transition text-center">
-              Login
+
+          {userInfo ? (
+            <button
+              onClick={handleLogout}
+              className="w-full bg-rose-50 text-rose-600 px-5 py-2.5 rounded-xl font-medium text-sm transition text-center"
+            >
+              Logout
             </button>
-          </Link>
+          ) : (
+            <Link
+              to="/login"
+              onClick={() => setIsOpen(false)}
+              className="w-full bg-indigo-600 text-white px-5 py-2.5 rounded-xl font-medium text-sm shadow-md hover:bg-indigo-700 transition text-center"
+            >
+              Login
+            </Link>
+          )}
         </div>
       </div>
     </nav>
