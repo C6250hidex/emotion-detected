@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -13,31 +14,36 @@ const Navbar = () => {
 
         {/* Desktop Navigation Links */}
         <div className="hidden md:flex items-center space-x-8">
-          <a
-            href="#"
-            className="text-gray-600 hover:text-indigo-600 font-medium text-sm tracking-wide transition-colors duration-200 relative after:content-[''] after:absolute after:left-0 after:bottom-[-4px] after:w-0 after:h-[2px] after:bg-indigo-600 hover:after:w-full after:transition-all"
-          >
-            Home
-          </a>
-          <a
-            href="#"
-            className="text-gray-600 hover:text-indigo-600 font-medium text-sm tracking-wide transition-colors duration-200 relative after:content-[''] after:absolute after:left-0 after:bottom-[-4px] after:w-0 after:h-[2px] after:bg-indigo-600 hover:after:w-full after:transition-all"
-          >
-            Detection
-          </a>
-          <a
-            href="#"
-            className="text-gray-600 hover:text-indigo-600 font-medium text-sm tracking-wide transition-colors duration-200 relative after:content-[''] after:absolute after:left-0 after:bottom-[-4px] after:w-0 after:h-[2px] after:bg-indigo-600 hover:after:w-full after:transition-all"
-          >
-            Dashboard
-          </a>
+          <Link to="/">
+            <a
+              className="text-gray-600 hover:text-indigo-600 font-medium text-sm tracking-wide transition-colors duration-200 relative after:content-[''] after:absolute after:left-0 after:bottom-[-4px] after:w-0 after:h-[2px] after:bg-indigo-600 hover:after:w-full after:transition-all"
+            >
+              Home
+            </a>
+          </Link>
+          <Link to="/detection">
+            <a
+              className="text-gray-600 hover:text-indigo-600 font-medium text-sm tracking-wide transition-colors duration-200 relative after:content-[''] after:absolute after:left-0 after:bottom-[-4px] after:w-0 after:h-[2px] after:bg-indigo-600 hover:after:w-full after:transition-all"
+            >
+              Detection
+            </a>
+          </Link>
+          <Link to="/dashboard">
+            <a
+              className="text-gray-600 hover:text-indigo-600 font-medium text-sm tracking-wide transition-colors duration-200 relative after:content-[''] after:absolute after:left-0 after:bottom-[-4px] after:w-0 after:h-[2px] after:bg-indigo-600 hover:after:w-full after:transition-all"
+            >
+              Dashboard
+            </a>
+          </Link>
         </div>
 
         {/* Desktop Action Button */}
         <div className="hidden md:flex items-center">
-          <button className="bg-indigo-600 text-white px-5 py-2.5 rounded-xl font-medium text-sm shadow-md shadow-indigo-200 hover:bg-indigo-700 hover:shadow-lg hover:shadow-indigo-300 transform hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200">
-            Login
-          </button>
+          <Link to="/login">
+            <button className="bg-indigo-600 text-white px-5 py-2.5 rounded-xl font-medium text-sm shadow-md shadow-indigo-200 hover:bg-indigo-700 hover:shadow-lg hover:shadow-indigo-300 transform hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200">
+              Login
+            </button>
+          </Link>
         </div>
 
         {/* Mobile Menu Button (Hamburger) */}
@@ -78,27 +84,32 @@ const Navbar = () => {
         className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${isOpen ? "max-h-64 opacity-100 mt-4" : "max-h-0 opacity-0"}`}
       >
         <div className="flex flex-col space-y-4 px-2 pt-2 pb-4 border-t border-gray-100">
-          <a
-            href="#"
-            className="text-gray-600 hover:text-indigo-600 font-medium text-base py-1 transition"
-          >
-            Home
-          </a>
-          <a
-            href="#"
-            className="text-gray-600 hover:text-indigo-600 font-medium text-base py-1 transition"
-          >
-            Detection
-          </a>
-          <a
-            href="#"
-            className="text-gray-600 hover:text-indigo-600 font-medium text-base py-1 transition"
-          >
-            Dashboard
-          </a>
-          <button className="w-full bg-indigo-600 text-white px-5 py-2.5 rounded-xl font-medium text-sm shadow-md hover:bg-indigo-700 transition text-center">
-            Login
-          </button>
+          <Link to="/">
+            <a
+              className="text-gray-600 hover:text-indigo-600 font-medium text-base py-1 transition"
+            >
+              Home
+            </a>
+          </Link>
+          <Link to="/detection">
+            <a
+              className="text-gray-600 hover:text-indigo-600 font-medium text-base py-1 transition"
+            >
+              Detection
+            </a>
+          </Link>
+          <Link to="/dashboard">
+            <a
+              className="text-gray-600 hover:text-indigo-600 font-medium text-base py-1 transition"
+            >
+              Dashboard
+            </a>
+          </Link>
+          <Link to="/login">
+            <button className="w-full bg-indigo-600 text-white px-5 py-2.5 rounded-xl font-medium text-sm shadow-md hover:bg-indigo-700 transition text-center">
+              Login
+            </button>
+          </Link>
         </div>
       </div>
     </nav>
